@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+    output   = "../electron/client"
+    binaryTargets = ["native"]
+
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+
+}
+
+model Zayavka {
+  id          Int      @id @default(autoincrement())
+  equipment   String
+  clientId    Int
+  description String
+  issueType   String
+  executor    String
+  status      String
+  client      User     @relation(fields: [clientId], references: [id])
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  fullName     String
+  role         String
+  organization String
+  login        String   @unique
+  password     String
+  zayavki      Zayavka[]
+}
