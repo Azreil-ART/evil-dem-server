@@ -4,7 +4,6 @@ const prisma = new PrismaClient();
 
 export default eventHandler(async (event) => {
   const body = await readBody(event);
-
   if (!body?.id) {
     return {
       status: true,

@@ -4,15 +4,15 @@ const prisma = new PrismaClient();
 
 export default eventHandler(async (event) => {
   const body: Zayavka = await readBody(event);
-  console.log(body);
   const zayavkaObj = {
     equipment: body.equipment,
     clientId: body.clientId,
     description: body.description,
     issueType: body.issueType,
-    executorId: body.executorId,
-    status: body.status,
+    status: 'В ожидании',
+    createdAt: new Date()
   };
+
   let result = {
     status: false,
     data: {},

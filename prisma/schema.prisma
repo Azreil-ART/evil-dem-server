@@ -19,10 +19,12 @@ model Zayavka {
   clientId    Int
   description String
   issueType   String
-  executorId  Int
+  executorId  Int?
   status      String
+
   client      User     @relation("Client", fields: [clientId], references: [id])
-  executor    User     @relation("Executor", fields: [executorId], references: [id])
+  executor    User?     @relation("Executor", fields: [executorId], references: [id])
+  createdAt    DateTime @db.Timestamptz(6)
 }
 
 model User {
