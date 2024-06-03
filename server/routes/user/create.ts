@@ -5,8 +5,18 @@ const prisma = new PrismaClient();
 export default eventHandler(async (event) => {
   const body = await readBody(event);
   console.log(body);
-  const user = await prisma.user.create({
-    data: JSON.parse(body),
-  });
-  return user;
+  const user_obj = body;
+  let result = {
+    status: false,
+    data: {},
+  };
+  try {
+    result.data = await prisma.user.create({
+      data: user_obj,
+    });
+    result.status = true;
+  } catch (error) {
+    result.data = error;
+  }
+  return result;
 });
