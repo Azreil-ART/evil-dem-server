@@ -23,7 +23,6 @@ export default eventHandler(async (event) => {
     });
     result.status = true;
   } catch (error) {
-    console.error("Error creating zayavka: ", error);
     result.data = error;
   }
   return result;
